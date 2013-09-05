@@ -31,7 +31,7 @@ set shiftround
 set showcmd
 set showmode
 set smarttab
-colorscheme wombat256
+colorscheme solarized
 set background=dark
 set wildmenu
 set wildmode=list:longest
@@ -129,4 +129,4 @@ let Tlist_Display_Tag_Scope = 1
 
 " snipMate options
 let g:snips_author = "Shaun Sandlin"
-let g:snippets_dir = $HOME . "/.vim/snippets/"
+" let g:snippets_dir = $HOME . "/.vim/snippets/"
