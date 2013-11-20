@@ -41,6 +41,9 @@ syntax on
 :set ignorecase
 :set smartcase
 
+" Make ZSH my shell for VIM
+" set shell=zsh 
+
 " Remap F1 to escape, because that happens a lot when reaching. :)
 inoremap <F1> <ESC>
 nnoremap <F1> <ESC>
@@ -71,10 +74,22 @@ inoremap jj <ESC>
 " go to it
 nnoremap <leader>w <C-w>v<C-w>l
 nnoremap <leader>s <C-w>s<C-w>j
+
+" map shortcuts for moving around in open windows
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
+
+" map shortcuts for moving around in open tabs
+nnoremap th  :tabfirst<CR>
+nnoremap tj  :tabnext<CR>
+nnoremap tk  :tabprev<CR>
+nnoremap tl  :tablast<CR>
+nnoremap tt  :tabedit<Space>
+nnoremap tn  :tabnext<Space>
+nnoremap tm  :tabm<Space>
+nnoremap td  :tabclose<CR>
 
 " run the file with PHP CLI (CTRL-M)
 :autocmd FileType php noremap <C-m> :w!<CR>:!/usr/local/bin/php %<CR>
@@ -118,7 +133,7 @@ let g:SupertabdefaultCompletionType = "context"
 nnoremap <F3> :TlistToggle<CR>
 let Tlist_Use_Right_Window = 1
 let Tlist_Compact_Format = 1
-let Tlist_Exit_OnlyWindow = 1
+let Tlist_Exit_OnlyWindow = 4
 let Tlist_GainFocus_On_ToggleOpen = 1
 let Tlist_File_Fild_Auto_Close = 1
 let Tlist_Inc_Winwidth = 0
@@ -126,6 +141,13 @@ let Tlist_Close_On_Select = 1
 let Tlist_Process_File_Always = 1
 let Tlist_Display_Prototype = 0
 let Tlist_Display_Tag_Scope = 1
+
+" syntastic settings
+ let g:syntastic_check_on_open=0
+ let g:syntastic_auto_jump=1
+ let g:syntastic_auto_loc_list=1
+ let g:syntastic_mode_map = { 'mode': 'active',
+                            \ 'active_filetypes': ['php', 'javascript', 'json', 'html', 'sh', 'docbk', 'css', 'xml', 'xhtml'] }
 
 " snipMate options
 let g:snips_author = "Shaun Sandlin"
