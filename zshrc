@@ -48,13 +48,11 @@ source $ZSH/oh-my-zsh.sh
 source ~/.zsh/env.zsh
 
 # Lines configured by zsh-newuser-install
-HISTFILE=~/.histfile
+HISTFILE=/tmp/.zsh_history
 HISTSIZE=1000
 SAVEHIST=1000
-setopt appendhistory autocd extendedglob nomatch notify
-unsetopt beep
 bindkey -v
-# End of lines configured by zsh-newuser-install
+
 # The following lines were added by compinstall
 zstyle :compinstall filename '/Users/ssandlin/.zshrc'
 
