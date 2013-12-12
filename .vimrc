@@ -91,11 +91,18 @@ nnoremap tn  :tabnext<Space>
 nnoremap tm  :tabm<Space>
 nnoremap td  :tabclose<CR>
 
+" map shortcuts for moving around in location lists
+nnoremap <leader>h :lfir<CR>
+nnoremap <leader>j :lp<CR>
+nnoremap <leader>k :lne<CR>
+nnoremap <leader>l :lla<CR>
+nnoremap <leader>q :lcl<CR>
+
 " run the file with PHP CLI (CTRL-M)
-:autocmd FileType php noremap <C-m> :w!<CR>:!/usr/local/bin/php %<CR>
+:autocmd FileType php noremap <C-m> :w!<CR>:!/usr/bin/php %<CR>
 
 " PHP parser check (CTRL-L)
-:autocmd FileType php noremap <C-n> :!/usr/local/bin/php -l %<CR>
+:autocmd FileType php noremap <C-n> :!/usr/bin/php -l %<CR>
 
 " run the current PHPUnit test file (Leader-P)
 :autocmd FileType php noremap <C-p> :w!<CR>:!/usr/local/bin/phpunit %<CR>
