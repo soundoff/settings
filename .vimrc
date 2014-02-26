@@ -31,11 +31,12 @@ set shiftround
 set showcmd
 set showmode
 set smarttab
-colorscheme solarized
-set background=dark
 set wildmenu
 set wildmode=list:longest
-syntax on
+syntax enable
+set background=dark
+let g:solarized_termcolors=256
+colorscheme solarized
 
 " Make case-insensitive search the norm
 :set ignorecase
