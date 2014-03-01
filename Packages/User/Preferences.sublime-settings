@@ -1,0 +1,10 @@
+{
+	"auto_complete_commit_on_tab": true,
+	"color_scheme": "Packages/Color Scheme - Default/Solarized (Dark).tmTheme",
+	"ignored_packages":
+	[
+		"Vintage"
+	],
+	"translate_tabs_to_spaces": true,
+	"vintage_start_in_command_mode": true
+}

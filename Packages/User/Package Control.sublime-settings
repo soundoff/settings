@@ -1,0 +1,18 @@
+{
+	"installed_packages":
+	[
+		"Alignment",
+		"CTags",
+		"DocBlockr",
+		"Doctrine Snippets",
+		"Git",
+		"GitGutter",
+		"Package Control",
+		"Phpcs",
+		"PHPUnit Completions",
+		"PHPUnit Snippets",
+		"SimplePHPUnit",
+		"SublimeCodeIntel",
+		"Vintageous"
+	]
+}
