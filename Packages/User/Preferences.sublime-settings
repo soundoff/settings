@@ -6,5 +6,6 @@
 		"Vintage"
 	],
 	"translate_tabs_to_spaces": true,
-	"vintage_start_in_command_mode": true
+	"vintageous_enable_cmdline_mode": true,
+    "vintageous_reset_mode_when_switching_tabs": true
 }
