@@ -1,0 +1,66 @@
+<snippet>
+    <content><![CDATA[
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                          http://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
+
+    <entity name="$1" table="$2">
+
+        <indexes>
+            <index name="$3" columns="$4" />
+            <index columns="$5" />
+        </indexes>
+
+        <unique-constraints>
+            <unique-constraint columns="$6" name="$7" />
+        </unique-constraints>
+
+        <lifecycle-callbacks>
+            <lifecycle-callback type="" method="" />
+        </lifecycle-callbacks>
+
+        <id name="id" type="integer" column="id">
+            <generator strategy="AUTO"/>
+            <sequence-generator sequence-name="" allocation-size="" initial-value="" />
+        </id>
+
+        <field name="" column="" type="" length="" nullable="" unique="" />
+
+        <one-to-one field="" target-entity="" inversed-by="">
+            <cascade><cascade-remove /></cascade>
+            <join-column name="" referenced-column-name="" on-delete="" on-update=""/>
+        </one-to-one>
+
+        <one-to-many field="" target-entity="" mapped-by="">
+            <cascade>
+                <cascade-persist/>
+            </cascade>
+            <order-by>
+                <order-by-field name="" direction="" />
+            </order-by>
+        </one-to-many>
+
+        <many-to-many field="" target-entity="">
+            <cascade>
+                <cascade-all/>
+            </cascade>
+            <join-table name="">
+                <join-columns>
+                    <join-column name="" referenced-column-name="" nullable="" unique="" />
+                </join-columns>
+                <inverse-join-columns>
+                    <join-column name="" referenced-column-name="" column-definition="" />
+                </inverse-join-columns>
+            </join-table>
+        </many-to-many>
+
+    </entity>
+
+</doctrine-mapping>
+]]></content>
+    <tabTrigger>d2xml</tabTrigger>
+    <scope>text.xml</scope>
+    <description>Doctrine 2 XML Template</description>
+</snippet>

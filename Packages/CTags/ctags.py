@@ -14,11 +14,11 @@ Contants
 """
 
 TAGS_RE = re.compile(
-    '(?P<symbol>[^\t]+)\t'
-    '(?P<filename>[^\t]+)\t'
-    '(?P<ex_command>.*?);"\t'
-    '(?P<type>[^\t\r\n]+)'
-    '(?:\t(?P<fields>.*))?'
+    r'(?P<symbol>[^\t]+)\t'
+    r'(?P<filename>[^\t]+)\t'
+    r'(?P<ex_command>.*?\$/);"\t'
+    r'(?P<type>[^\t\r\n]+)'
+    r'(?:\t(?P<fields>.*))?'
 )
 
 # column indexes
@@ -258,7 +258,8 @@ def create_tag_path(tag):
 """Tag building/sorting functions"""
 
 
-def build_ctags(path, tag_file=None, recursive=False, cmd=None, env=None):
+def build_ctags(path, tag_file=None, recursive=False, opts=None, cmd=None,
+                env=None):
     """Execute the ``ctags`` command using ``Popen``
 
     :param path: path to file or directory (with all files) to generate
@@ -266,6 +267,7 @@ def build_ctags(path, tag_file=None, recursive=False, cmd=None, env=None):
     :param tag_file: filename to use for the tag file. Defaults to ``tags``
     :param recursive: specify if search should be recursive in directory
         given by path. This overrides filename specified by ``path``
+    :param opts: list of additional options to pass to the ctags executable
     :param env: environment variables to be used when executing ``ctags``
 
     :returns: original ``tag_file`` filename
@@ -287,6 +289,12 @@ def build_ctags(path, tag_file=None, recursive=False, cmd=None, env=None):
 
     if tag_file:
         cmd.append('-f {0}'.format(tag_file))
+
+    if opts:
+        if type(opts) == list:
+            cmd.extend(opts)
+        else:  # *should* be a list, but better safe than sorry
+            cmd.append(opts)
 
     if recursive:  # ignore any file specified in path if recursive set
         cmd.append('-R')
@@ -345,11 +353,11 @@ def resort_ctags(tag_file):
     """
     keys = {}
 
-    with codecs.open(tag_file, encoding='utf-8') as fh:
+    with codecs.open(tag_file, encoding='utf-8', errors='ignore') as fh:
         for line in fh:
             keys.setdefault(line.split('\t')[FILENAME], []).append(line)
 
-    with codecs.open(tag_file+'_sorted_by_file', 'w', encoding='utf-8') as fw:
+    with codecs.open(tag_file+'_sorted_by_file', 'w', encoding='utf-8', errors='ignore') as fw:
         for k in sorted(keys):
             for line in keys[k]:
                 split = line.split('\t')

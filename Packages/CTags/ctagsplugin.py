@@ -364,15 +364,17 @@ def scroll_to_tag(view, tag, hook=None):
                 do_find = False
 
         if do_find:
-            symbol_region = view.find(escape_regex(tag.symbol) + r"(?:[^_]|$)",
-                look_from, 0)
+            symbol_region = view.find(
+                escape_regex(tag.symbol) + r"(?:[^_]|$)", look_from, 0)
 
         if do_find and symbol_region:
             # Using reversed symbol_region so cursor stays in front of the
             # symbol. - 1 to discard the additional regex part.
-            select_region = sublime.Region(symbol_region.end() - 1,
-                symbol_region.begin())
+            select_region = sublime.Region(
+                symbol_region.end() - 1, symbol_region.begin())
             select(view, select_region)
+            if not setting('select_searched_symbol'):
+                view.run_command('exit_visual_mode')
         else:
             status_message('Can\'t find "%s"' % tag.symbol)
 
@@ -547,9 +549,10 @@ def show_build_panel(view):
             command = setting('command')
             recursive = setting('recursive')
             tag_file = setting('tag_file')
+            opts = setting('opts')
 
             rebuild_tags = RebuildTags(False)
-            rebuild_tags.build_ctags(paths, command, tag_file, recursive)
+            rebuild_tags.build_ctags(paths, command, tag_file, recursive, opts)
 
     view.window().show_quick_panel(display, on_select)
 
@@ -601,9 +604,9 @@ def ctags_goto_command(jump_directly=False):
 def check_if_building(self, **args):
     """Check if ctags are currently being built"""
     if RebuildTags.build_ctags.func.running:
-        status_message('Please wait while tags are built')
-    else:
-        return True
+        error_message('Please wait while tags are built')
+        return False
+    return True
 
 
 def compile_filters(view):
@@ -817,11 +820,12 @@ class RebuildTags(sublime_plugin.TextCommand):
 
         command = setting('command')
         recursive = setting('recursive')
+        opts = setting('opts')
         tag_file = setting('tag_file')
 
         if 'dirs' in args:
             paths.extend(args['dirs'])
-            self.build_ctags(paths, command, tag_file, recursive)
+            self.build_ctags(paths, command, tag_file, recursive, opts)
         elif (self.view.file_name() is None and
                 len(self.view.window().folders()) <= 0):
             status_message('Cannot build CTags: No file or folder open.')
@@ -830,7 +834,7 @@ class RebuildTags(sublime_plugin.TextCommand):
             show_build_panel(self.view)
 
     @threaded(msg='Already running CTags!')
-    def build_ctags(self, paths, command, tag_file, recursive):
+    def build_ctags(self, paths, command, tag_file, recursive, opts):
         """Build tags for the open file or folder(s)
 
         :param paths: paths to build ctags for
@@ -838,6 +842,8 @@ class RebuildTags(sublime_plugin.TextCommand):
         :param tag_file: filename to use for the tag file. Defaults to ``tags``
         :param recursive: specify if search should be recursive in directory
             given by path. This overrides filename specified by ``path``
+        :param opts: list of additional parameters to pass to the ``ctags``
+            executable
 
         :returns: None
         """
@@ -859,7 +865,8 @@ class RebuildTags(sublime_plugin.TextCommand):
 
             try:
                 result = ctags.build_ctags(path=path, tag_file=tag_file,
-                                           recursive=recursive, cmd=command)
+                                           recursive=recursive, opts=opts,
+                                           cmd=command)
             except IOError as e:
                 error_message(str(e).rstrip())
                 return

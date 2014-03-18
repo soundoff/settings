@@ -2,6 +2,7 @@
 	"installed_packages":
 	[
 		"Alignment",
+		"BracketHighlighter",
 		"CTags",
 		"DocBlockr",
 		"Doctrine Snippets",
@@ -13,6 +14,8 @@
 		"PHPUnit Snippets",
 		"SimplePHPUnit",
 		"SublimeCodeIntel",
+		"SublimeLinter-xmllint",
+		"VintageLines",
 		"Vintageous"
 	]
 }
